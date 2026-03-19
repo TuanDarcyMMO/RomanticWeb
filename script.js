@@ -2,7 +2,7 @@
 
 // Hardcoded credentials (private use)
 const VALID_USERNAME = "meridiem";
-const VALID_PASSWORD = "12122007"; // Example birthday
+const VALID_PASSWORD = "121207"; // Example birthday
 
 const loginForm = document.getElementById("loginForm");
 const errorMessage = document.getElementById("errorMessage");
@@ -71,7 +71,7 @@ function handleLogin(e) {
     }, 3000);
   } else {
     // Show error message
-    errorMessage.textContent = "❌ Incorrect name or birthday. Try again.";
+    errorMessage.textContent = "Sai rồi kìa nhập lại đi ";
     errorMessage.style.display = "block";
 
     // Clear password field
