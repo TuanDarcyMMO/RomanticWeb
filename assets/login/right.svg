@@ -1,0 +1,18 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Right side decorative element -->
+  <defs>
+    <linearGradient id="rightGrad" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#764ba2;stop-opacity:0.6" />
+      <stop offset="100%" style="stop-color:#667eea;stop-opacity:0.6" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Decorative circles -->
+  <circle cx="150" cy="50" r="30" fill="url(#rightGrad)" opacity="0.8"/>
+  <circle cx="100" cy="100" r="45" fill="url(#rightGrad)" opacity="0.6"/>
+  <circle cx="160" cy="150" r="25" fill="url(#rightGrad)" opacity="0.7"/>
+  
+  <!-- Connecting lines -->
+  <path d="M 150 50 Q 125 75 100 100" stroke="#764ba2" stroke-width="2" fill="none" opacity="0.5"/>
+  <path d="M 100 100 Q 130 125 160 150" stroke="#667eea" stroke-width="2" fill="none" opacity="0.5"/>
+</svg>
