@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#667eea" />
+    <meta name="description" content="A romantic experience just for you" />
+    <title>💖 Welcome</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Background -->
+    <div class="login-bg"></div>
+
+    <!-- Side Images -->
+    <div class="side-image side-left">
+      <img src="assets/login/left.svg" alt="Left Decoration" />
+    </div>
+    <div class="side-image side-right">
+      <img src="assets/login/right.svg" alt="Right Decoration" />
+    </div>
+
+    <!-- Snowflake Container -->
+    <div class="snowflakes"></div>
+
+    <!-- Main Login Container -->
+    <div class="login-container">
+      <div class="login-card">
+        <div class="animated-title">
+          <h1>Hello Meridiem</h1>
+        </div>
+        <div class="logo">
+          <img src="assets/login/login.png" alt="Avatar Logo" />
+        </div>
+        <form id="loginForm" onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label for="username">Your Name</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Enter your name"
+              autocomplete="off"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="password">Password </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Your birthday"
+              autocomplete="off"
+              required
+            />
+          </div>
+          <button type="submit" class="btn-login" id="loginBtn">Enter</button>
+        </form>
+        <p class="error-message" id="errorMessage"></p>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
