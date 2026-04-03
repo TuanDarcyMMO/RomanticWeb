@@ -13,26 +13,45 @@
       <div class="video-wrapper" id="videoWrapper">
         <img
           id="thumbnail"
-          src="assets/meridiem.JPEG"
+          src="https://img.youtube.com/vi/OL-hTIGpmp0/maxresdefault.jpg"
           alt="Video Thumbnail"
           class="video-thumbnail"
         />
+        <div class="youtube-logo">
+          <svg viewBox="0 0 48 48" width="48" height="48">
+            <path
+              fill="#FF0000"
+              d="M43.2,33.9c-0.4,2.1-2.1,3.7-4.2,4c-3.3,0.5-8.5,1.1-17,1.1c-8.5,0-13.7-0.6-17-1.1c-2.1-0.3-3.8-1.9-4.2-4C4.4,31.6,4,28.2,4,24c0-4.2,0.4-7.6,0.8-9.9c0.4-2.1,2.1-3.7,4.2-4C12.3,9.6,17.5,9,25,9c8.5,0,13.7,0.6,17,1.1c2.1,0.3,3.8,1.9,4.2,4c0.4,2.3,0.8,5.7,0.8,9.9C44,28.2,43.6,31.6,43.2,33.9z"
+            ></path>
+            <path fill="#FFF" d="M20 31L20 17 32 24z"></path>
+          </svg>
+        </div>
         <div class="play-button-overlay">
           <button id="playBtn" class="play-button" aria-label="Play video">
-            <svg viewBox="0 0 24 24" width="64" height="64" fill="white">
+            <svg viewBox="0 0 24 24" width="80" height="80" fill="white">
               <polygon points="5 3 19 12 5 21"></polygon>
             </svg>
           </button>
         </div>
-        <video
-          id="videoPlayer"
-          controls
-          preload="metadata"
-          controlsList="nodownload"
-        >
-          <source src="assets/foru.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+      </div>
+      <div id="playerModal" class="player-modal hidden">
+        <div class="player-modal-content">
+          <button id="closeBtn" class="close-btn">&times;</button>
+          <iframe
+            id="videoPlayer"
+            src=""
+            allow="
+              accelerometer;
+              autoplay;
+              clipboard-write;
+              encrypted-media;
+              gyroscope;
+              picture-in-picture;
+            "
+            allowfullscreen
+            frameborder="0"
+          ></iframe>
+        </div>
       </div>
       <div class="message-section">
         <p class="message-text">This video is specially for you 💖</p>
@@ -40,5 +59,40 @@
     </div>
 
     <script src="script.js"></script>
+    <script>
+      const playBtn = document.getElementById("playBtn");
+      const playerModal = document.getElementById("playerModal");
+      const closeBtn = document.getElementById("closeBtn");
+      const videoPlayer = document.getElementById("videoPlayer");
+
+      // Open player modal
+      playBtn.addEventListener("click", function () {
+        playerModal.classList.remove("hidden");
+        videoPlayer.src =
+          "https://www.youtube.com/embed/OL-hTIGpmp0?autoplay=1";
+      });
+
+      // Close player modal
+      closeBtn.addEventListener("click", function () {
+        playerModal.classList.add("hidden");
+        videoPlayer.src = "";
+      });
+
+      // Close when clicking outside
+      playerModal.addEventListener("click", function (e) {
+        if (e.target === playerModal) {
+          playerModal.classList.add("hidden");
+          videoPlayer.src = "";
+        }
+      });
+
+      // Close with Escape key
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && !playerModal.classList.contains("hidden")) {
+          playerModal.classList.add("hidden");
+          videoPlayer.src = "";
+        }
+      });
+    </script>
   </body>
 </html>
