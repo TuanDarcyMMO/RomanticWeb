@@ -85,6 +85,10 @@ if (document.readyState === "loading") {
 
 function createSnowflakes() {
   const snowflakesContainer = document.querySelector(".snowflakes");
+  
+  // Only proceed if snowflakes container exists (only on login page)
+  if (!snowflakesContainer) return;
+  
   const snowflakeSymbols = ["❄", "✦", "✧", "⋆"];
 
   // Create 20 snowflakes
