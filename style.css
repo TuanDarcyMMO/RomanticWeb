@@ -657,6 +657,11 @@ body.video-page::before {
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
+/* Hide video by default */
+.video-wrapper video {
+  display: none;
+}
+
 /* ==================== MUSIC MODAL ==================== */
 
 .music-modal {

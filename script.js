@@ -234,8 +234,11 @@ if (document.getElementById("videoPlayer")) {
     const playButtonOverlay = document.querySelector(".play-button-overlay");
     const videoWrapper = document.getElementById("videoWrapper");
 
+    console.log("Video elements loaded:", { video, playBtn, thumbnail });
+
     if (playBtn) {
       playBtn.addEventListener("click", function () {
+        console.log("Play button clicked!");
         // Hide thumbnail and play button
         thumbnail.style.display = "none";
         playButtonOverlay.style.display = "none";
@@ -244,12 +247,15 @@ if (document.getElementById("videoPlayer")) {
         video.style.display = "block";
 
         // Play video
-        video.play();
+        video.play().catch((err) => {
+          console.error("Video play error:", err);
+        });
       });
 
       // Also allow clicking on the overlay/wrapper to play
       videoWrapper.addEventListener("click", function (e) {
         if (e.target !== video) {
+          console.log("Wrapper clicked, triggering play button");
           playBtn.click();
         }
       });
