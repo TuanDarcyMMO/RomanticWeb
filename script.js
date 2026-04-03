@@ -85,10 +85,10 @@ if (document.readyState === "loading") {
 
 function createSnowflakes() {
   const snowflakesContainer = document.querySelector(".snowflakes");
-  
+
   // Only proceed if snowflakes container exists (only on login page)
   if (!snowflakesContainer) return;
-  
+
   const snowflakeSymbols = ["❄", "✦", "✧", "⋆"];
 
   // Create 20 snowflakes
@@ -238,7 +238,31 @@ if (document.getElementById("videoPlayer")) {
     const playButtonOverlay = document.querySelector(".play-button-overlay");
     const videoWrapper = document.getElementById("videoWrapper");
 
+    // Hide video initially
+    video.style.display = "none";
+
     console.log("Video elements loaded:", { video, playBtn, thumbnail });
+
+    // Log video element info
+    if (video) {
+      console.log("Video source:", video.querySelector("source")?.src);
+      console.log("Video readyState:", video.readyState, "networkState:", video.networkState);
+
+      // Listen for video errors
+      video.addEventListener("error", (e) => {
+        console.error("Video error:", video.error);
+      });
+
+      // Listen for when metadata is loaded
+      video.addEventListener("loadedmetadata", () => {
+        console.log("Video metadata loaded. Duration:", video.duration);
+      });
+
+      // Listen for when video can be played
+      video.addEventListener("canplay", () => {
+        console.log("Video can play");
+      });
+    }
 
     if (playBtn) {
       playBtn.addEventListener("click", function () {
@@ -247,13 +271,15 @@ if (document.getElementById("videoPlayer")) {
         thumbnail.style.display = "none";
         playButtonOverlay.style.display = "none";
 
-        // Show video
-        video.style.display = "block";
+        // Show video with high priority
+        video.style.cssText = "display: block !important; visibility: visible !important; opacity: 1 !important;";
 
-        // Play video
-        video.play().catch((err) => {
-          console.error("Video play error:", err);
-        });
+        // Wait a moment for video to render, then play
+        setTimeout(() => {
+          video.play().catch((err) => {
+            console.error("Video play error:", err);
+          });
+        }, 100);
       });
 
       // Also allow clicking on the overlay/wrapper to play
