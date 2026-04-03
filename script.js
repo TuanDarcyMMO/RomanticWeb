@@ -246,7 +246,12 @@ if (document.getElementById("videoPlayer")) {
     // Log video element info
     if (video) {
       console.log("Video source:", video.querySelector("source")?.src);
-      console.log("Video readyState:", video.readyState, "networkState:", video.networkState);
+      console.log(
+        "Video readyState:",
+        video.readyState,
+        "networkState:",
+        video.networkState,
+      );
 
       // Listen for video errors
       video.addEventListener("error", (e) => {
@@ -272,7 +277,8 @@ if (document.getElementById("videoPlayer")) {
         playButtonOverlay.style.display = "none";
 
         // Show video with high priority
-        video.style.cssText = "display: block !important; visibility: visible !important; opacity: 1 !important;";
+        video.style.cssText =
+          "display: block !important; visibility: visible !important; opacity: 1 !important;";
 
         // Wait a moment for video to render, then play
         setTimeout(() => {
