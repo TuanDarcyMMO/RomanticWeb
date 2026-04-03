@@ -8,6 +8,79 @@ const loginForm = document.getElementById("loginForm");
 const errorMessage = document.getElementById("errorMessage");
 const loginBtn = document.getElementById("loginBtn");
 
+// ==================== MUSIC PLAYBACK ====================
+
+let isAudioPlaying = false;
+let shouldRedirectAfterMusic = false;
+
+function initializeMusic() {
+  const bgMusic = document.getElementById("bgMusic");
+  const musicModal = document.getElementById("musicModal");
+  const skipBtn = document.getElementById("skipBtn");
+  const stayBtn = document.getElementById("stayBtn");
+  const progressFill = document.getElementById("progressFill");
+  const currentTimeSpan = document.getElementById("currentTime");
+  const durationSpan = document.getElementById("duration");
+
+  if (!bgMusic) return;
+
+  // Update progress bar
+  bgMusic.addEventListener("timeupdate", function () {
+    const percent = (bgMusic.currentTime / bgMusic.duration) * 100;
+    progressFill.style.width = percent + "%";
+
+    // Update time display
+    currentTimeSpan.textContent = formatTime(bgMusic.currentTime);
+    durationSpan.textContent = formatTime(bgMusic.duration);
+  });
+
+  // When music ends
+  bgMusic.addEventListener("ended", function () {
+    if (shouldRedirectAfterMusic) {
+      redirectToVideo();
+    }
+  });
+
+  // Skip button
+  if (skipBtn) {
+    skipBtn.addEventListener("click", function () {
+      bgMusic.pause();
+      bgMusic.currentTime = 0;
+      musicModal.classList.add("hidden");
+      redirectToVideo();
+    });
+  }
+
+  // Stay button
+  if (stayBtn) {
+    stayBtn.addEventListener("click", function () {
+      shouldRedirectAfterMusic = true;
+      stayBtn.disabled = true;
+      skipBtn.disabled = true;
+      stayBtn.style.opacity = "0.6";
+      skipBtn.style.opacity = "0.6";
+    });
+  }
+}
+
+function formatTime(seconds) {
+  if (isNaN(seconds)) return "0:00";
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  return `${mins}:${secs.toString().padStart(2, "0")}`;
+}
+
+function redirectToVideo() {
+  window.location.href = "video.html";
+}
+
+// Initialize music on page load
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initializeMusic);
+} else {
+  initializeMusic();
+}
+
 // ==================== SNOWFLAKE EFFECT ====================
 
 function createSnowflakes() {
@@ -65,10 +138,28 @@ function handleLogin(e) {
     // Show loading animation
     showLoadingAnimation();
 
-    // Redirect after 3 seconds
-    setTimeout(() => {
-      window.location.href = "video.html";
-    }, 3000);
+    // Play background music
+    const bgMusic = document.getElementById("bgMusic");
+    const musicModal = document.getElementById("musicModal");
+
+    if (bgMusic && musicModal) {
+      // Play music after 1.5 seconds (during loading)
+      setTimeout(() => {
+        bgMusic.play().catch((err) => {
+          console.log("Music playback prevented:", err);
+        });
+
+        // Show music modal after 2 seconds
+        setTimeout(() => {
+          musicModal.classList.remove("hidden");
+        }, 500);
+      }, 1500);
+    } else {
+      // Fallback: redirect after 3 seconds if no music/modal
+      setTimeout(() => {
+        redirectToVideo();
+      }, 3000);
+    }
   } else {
     // Show error message
     errorMessage.textContent = "Sai rồi kìa nhập lại đi ";
@@ -79,6 +170,7 @@ function handleLogin(e) {
 
     // Re-enable button
     loginBtn.disabled = false;
+    loginBtn.textContent = "Bắt đầu";
   }
 }
 
@@ -133,14 +225,34 @@ function createFloatingHearts(container) {
 
 // ==================== VIDEO PAGE ====================
 
-// Auto-play video when page loads
+// Click to play video
 if (document.getElementById("videoPlayer")) {
   document.addEventListener("DOMContentLoaded", function () {
     const video = document.getElementById("videoPlayer");
-    // Attempt to auto-play
-    video.play().catch((err) => {
-      // Auto-play is prevented, user must click to play
-      console.log("Note: Auto-play prevented by browser policy");
-    });
+    const playBtn = document.getElementById("playBtn");
+    const thumbnail = document.getElementById("thumbnail");
+    const playButtonOverlay = document.querySelector(".play-button-overlay");
+    const videoWrapper = document.getElementById("videoWrapper");
+
+    if (playBtn) {
+      playBtn.addEventListener("click", function () {
+        // Hide thumbnail and play button
+        thumbnail.style.display = "none";
+        playButtonOverlay.style.display = "none";
+
+        // Show video
+        video.style.display = "block";
+
+        // Play video
+        video.play();
+      });
+
+      // Also allow clicking on the overlay/wrapper to play
+      videoWrapper.addEventListener("click", function (e) {
+        if (e.target !== video) {
+          playBtn.click();
+        }
+      });
+    }
   });
 }

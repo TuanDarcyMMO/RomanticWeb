@@ -23,6 +23,32 @@
     <!-- Snowflake Container -->
     <div class="snowflakes"></div>
 
+    <!-- Background Music -->
+    <audio id="bgMusic" preload="auto">
+      <source src="assets/music/buong.mp3" type="audio/mp4" />
+      Your browser does not support the audio element.
+    </audio>
+
+    <!-- Music Enjoyment Modal -->
+    <div id="musicModal" class="music-modal hidden">
+      <div class="music-modal-content">
+        <div class="music-icon">🎵</div>
+        <h2>Đang tận hưởng bài hát này...</h2>
+        <p>Muốn bỏ qua để tiếp tục hay ở lại nghe hết?</p>
+        <div class="modal-buttons">
+          <button id="skipBtn" class="btn-skip">⏭️ Bỏ qua</button>
+          <button id="stayBtn" class="btn-stay">🎧 Ở lại nghe hết</button>
+        </div>
+        <div class="music-progress">
+          <span id="currentTime">0:00</span>
+          <div class="progress-bar">
+            <div id="progressFill" class="progress-fill"></div>
+          </div>
+          <span id="duration">3:00</span>
+        </div>
+      </div>
+    </div>
+
     <!-- Main Login Container -->
     <div class="login-container">
       <div class="login-card">
